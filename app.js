@@ -27,4 +27,4 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.use('/users', users);
 app.use('/auths', auths);
 
-app.listen(port, () => console.log('Fypr NodeJS-Boilerplate app listening at http://localhost:${port}'))
+app.listen(port, () => console.log('Fypr NodeJS-Boilerplate app ir running'));

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-//const model = require('../data/models/index');
 
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated())
@@ -9,7 +8,6 @@ function isAuthenticated(req, res, next) {
     res.redirect('/login');
 }
   
-// POST login
 router.post('/login', 
     passport.authenticate('local', { failureRedirect: '/login' }),
     function(req, res) {
@@ -26,5 +24,4 @@ router.get('/check', isAuthenticated, function(req, res) {
     res.json({'status': 'you are authenticated'});
 });
   
-
 module.exports = router;
