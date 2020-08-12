@@ -23,8 +23,8 @@ app.use(function (error, request, response, next) {
     response.status(400).send(error.message);
 });
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send('Welcome to Fypr Backend Starter'))
 app.use('/users', users);
 app.use('/auths', auths);
 
-app.listen(port, () => console.log('Fypr NodeJS-Boilerplate app ir running'));
+app.listen(port, () => console.log('Fypr Backend app is running'));
