@@ -1,8 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
-const hashHelper = require('../../helpers/hashes');
+const hashHelper = require('../helpers/hashes');
 
-let context = require('../models/index');
+let context = require('../data/models/index');
 
 module.exports = function(passport){
     

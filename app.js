@@ -16,7 +16,7 @@ app.use(session({ secret: 'FyprBoilerplate', resave: false, saveUninitialized: f
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./data/config/passport')(passport);
+require('./configs/passport')(passport);
 
 app.use(function (error, request, response, next) {
     console.error(error.stack);
