@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
-const hashHelper = require('../../helper/hash');
+const hashHelper = require('../../helpers/hashes');
 
 let context = require('../models/index');
 
