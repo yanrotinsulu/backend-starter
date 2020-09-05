@@ -2,7 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const passport = require('passport');
+const passport = require('passport'); 
 
 const app = express();
 const port = 3000;
@@ -14,9 +14,12 @@ app.use(cookieParser());
 app.use(bodyParser());
 app.use(session({ secret: 'FyprBoilerplate', resave: false, saveUninitialized: false, cookie:{secure:false} }));
 app.use(passport.initialize());
+
+// please remark if you use JWT without session
 app.use(passport.session());
 
 require('./configs/passport')(passport);
+require('./configs/passport-jwt')(passport);
 
 app.use(function (error, request, response, next) {
     console.error(error.stack);

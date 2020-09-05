@@ -1,5 +1,4 @@
 const LocalStrategy = require('passport-local').Strategy;
-const JwtStrategy = require('passport-jwt').Strategy;
 const hashHelper = require('../helpers/hashes');
 
 let context = require('../data/models/index');
@@ -15,16 +14,22 @@ module.exports = function(passport){
     });
 
     passport.use(new LocalStrategy({
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password'
         },
-        async function(email, password, done) {
-            var user = await context.users.findOne({ where: { email: email } });
-            if(user && hashHelper.compareSync(password,user.password)){
-                return done(null,user);
+        async function(username, password, done) { //it's always username, password, done
+            const user = await context.users.findOne({ where: { email: username } });
+            if(!user){
+                return done(null, false, { message: 'Incorrect username and password.' });
             }
             else{
-                return done(null, false, { message: 'Incorrect username and password.' });
+                const compare = await hashHelper.compareAsync(password, user.password);
+                if(compare){
+                    return done(null,user);
+                }
+                else{
+                    return done(null, false, { message: 'Wrong username or password.' });
+                }
             }
        }
     ));
