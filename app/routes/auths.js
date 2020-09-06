@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const authService = require('../services/auth_services');
 const jwt = require('jsonwebtoken');
+
+const authService = require('../services/auth_services');
 const jwtConfig = require('../configs/jwt-config');
 
 function isAuthenticated(req, res, next) {

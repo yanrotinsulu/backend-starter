@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const hashHelper = require('../helpers/hashes');
 
-let context = require('../data/models/index');
+let context = require('../../data/models/index');
 
 module.exports = function(passport){
     

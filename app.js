@@ -6,8 +6,9 @@ const passport = require('passport');
 
 const app = express();
 const port = 3000;
-const users = require('./routes/users');
-const auths = require('./routes/auths');
+const users = require('./app/routes/users');
+const auths = require('./app/routes/auths');
+//process.env.root = __dirname;
 
 //app.use(express.static('public'));
 app.use(cookieParser());
@@ -18,8 +19,8 @@ app.use(passport.initialize());
 // please remark if you use JWT without session
 app.use(passport.session());
 
-require('./configs/passport')(passport);
-require('./configs/passport-jwt')(passport);
+require('./app/configs/passport')(passport);
+require('./app/configs/passport-jwt')(passport);
 
 app.use(function (error, request, response, next) {
     console.error(error.stack);
@@ -30,4 +31,4 @@ app.get('/', (req, res) => res.send('Welcome to Fypr Backend Starter'))
 app.use('/users', users);
 app.use('/auths', auths);
 
-app.listen(port, () => console.log('Fypr Backend app is running'));
+app.listen(port, () => console.log('Fypr Backend app is running at', process.env.root));

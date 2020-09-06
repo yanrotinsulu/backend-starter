@@ -3,7 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy,
 const hashHelper = require('../helpers/hashes');
 const jwtConfig = require('./jwt-config');
 
-let context = require('../data/models/index');
+let context = require('../../data/models/index');
 
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();

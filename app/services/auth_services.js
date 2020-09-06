@@ -1,5 +1,5 @@
 const hashHelper = require('../helpers/hashes');
-let context = require('../data/models/index');
+let context = require('../../data/models/index');
 
 const services = {
     async getUserId(username, password){
