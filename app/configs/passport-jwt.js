@@ -1,7 +1,7 @@
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 const hashHelper = require('../helpers/hashes');
-const jwtConfig = require('./jwt-config');
+const jwtConfig = require('./passport-config');
 
 let context = require('../data/models/index');
 
