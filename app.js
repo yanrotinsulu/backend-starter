@@ -14,7 +14,9 @@ const auths = require('./app/routes/auths');
 //app.use(express.static('public'));
 app.disable('x-powered-by');
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.json({
+    limit: '100kb',
+}));
 app.use(session({ secret: 'FyprBoilerplate', resave: false, saveUninitialized: false, cookie:{secure:false} }));
 app.use(passport.initialize());
 
