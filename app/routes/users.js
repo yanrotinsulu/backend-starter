@@ -20,7 +20,7 @@ router.get('/:id/delete', user_controller.user_delete_get);
 router.post('/:id/delete', user_controller.user_delete_post);
 
 // DELETE request to delete User.
-router.delete('/:id', user_controller.user_delete_delete);
+router.delete('/:id', isAuthenticated, user_controller.user_delete_delete);
 
 // GET request to update User.
 router.get('/:id/update', user_controller.user_update_get);
