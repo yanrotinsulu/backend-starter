@@ -9,21 +9,19 @@ const isAuthenticated = require('../helpers/isauthenticated');
 
 switch(passportConfig.strategy){
   case "local":
-
     router.post('/login', 
       passport.authenticate('local', { failureRedirect: '/auths/login' }),
       function(req, res) {
         res.redirect('/');
       }
     );
-
     router.get('/logout', function(req, res){
       req.logout();
       res.redirect('/auths/login');
     });
+    break;
   
   default:
-
     router.post('/login', async function(req, res) {
         UserID = await authService.getUserId(req.body.username, req.body.password);
         if (UserID){
@@ -38,6 +36,7 @@ switch(passportConfig.strategy){
         }
       }
     );
+    break;
 }
 
 router.get('/check', isAuthenticated, function(req, res) {

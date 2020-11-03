@@ -24,7 +24,7 @@ module.exports = function(passport){
     });
 
     passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
-        var user = await context.users.findOne({ where: { id: jwt_payload.id } });
+        const user = await context.users.findOne({ where: { id: jwt_payload.id } });
         if(user){
             return done(null,user);
         }

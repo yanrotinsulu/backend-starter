@@ -12,8 +12,11 @@ const auths = require('./app/routes/auths');
 //process.env.root = __dirname;
 
 //app.use(express.static('public'));
+app.disable('x-powered-by');
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.json({
+    limit: '100kb',
+}));
 app.use(session({ secret: 'FyprBoilerplate', resave: false, saveUninitialized: false, cookie:{secure:false} }));
 app.use(passport.initialize());
 
@@ -21,8 +24,10 @@ switch(passportConfig.strategy){
     case "local":
         app.use(passport.session());
         require('./app/configs/passport-local')(passport);
+        break;
     default:
         require('./app/configs/passport-jwt')(passport);
+        break;
 }
 
 app.use(function (error, request, response, next) {

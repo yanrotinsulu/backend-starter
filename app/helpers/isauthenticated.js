@@ -10,6 +10,7 @@ switch (passportConfig.strategy){
                 return next();
             res.json({'status': 'you are not authenticated'});
         }
+        break;
     // jwt is default
     default:
         isAuthenticatedFunction = function isAuthenticated(req, res, next) {
@@ -23,6 +24,7 @@ switch (passportConfig.strategy){
                 }
             })(req,res);
         }
+        break;
 }
 
 module.exports = isAuthenticatedFunction;
