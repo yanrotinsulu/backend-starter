@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const hashHelper = require('../helpers/hashes');
 
-let context = require('../data/models/index');
+let model = require('../data/models/index');
 
 module.exports = function(passport){
     
@@ -18,7 +18,7 @@ module.exports = function(passport){
         passwordField: 'password'
         },
         async function(username, password, done) { //it's always username, password, done
-            const user = await context.users.findOne({ where: { email: username } });
+            const user = await model.user.findOne({ where: { email: username } });
             if(!user){
                 return done(null, false, { message: 'Incorrect username and password.' });
             }

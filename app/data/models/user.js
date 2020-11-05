@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const users = sequelize.define('users', {
+  const user = sequelize.define('user', {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     userFullName: DataTypes.STRING,
@@ -8,9 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     isLocked: DataTypes.BOOLEAN,
     createdBy: DataTypes.STRING,
     updatedBy: DataTypes.STRING
-  }, {});
-  users.associate = function(models) {
+  }, {
+    freezeTableName: true
+  });
+  user.associate = function(models) {
     // associations can be defined here
   };
-  return users;
+  return user;
 };
