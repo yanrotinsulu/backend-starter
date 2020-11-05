@@ -8,9 +8,9 @@ let model = require('../data/models/index');
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = jwtConfig.secretKey;
-//opts.issuer = 'development.fyprsol.com';
-//opts.audience = 'fyprsol.com';
-opts.usernameField = 'email';
+//opts.issuer = 'any';
+//opts.audience = 'any';
+opts.usernameField = 'username';
 opts.passwordField = 'password';
 
 module.exports = function(passport){
