@@ -16,12 +16,13 @@ module.exports = {
     */
     return queryInterface.bulkInsert('user', [{
       id: 1,
-      email: 'superadmin@rotinsulu.com',
+      username: 'superadmin',
       password: hashHelper.hashSync('Admin@123456'),
-      userFullName: 'Superadmin',
-      isActivated: true,
-      createdBy: 'system',
-      updatedBy: 'system'
+      email: 'superadmin@rotinsulu.com',
+      full_name: 'Superadmin',
+      is_activated: true,
+      created_by: 'system',
+      updated_by: 'system'
     }], {});
   },
 
