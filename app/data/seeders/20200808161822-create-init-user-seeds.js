@@ -14,7 +14,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('users', [{
+    return queryInterface.bulkInsert('user', [{
       id: 1,
       email: 'superadmin@rotinsulu.com',
       password: hashHelper.hashSync('Admin@123456'),
@@ -33,7 +33,7 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-    return queryInterface.bulkDelete('users', [{
+    return queryInterface.bulkDelete('user', [{
       id: 1
     }], {});
   }

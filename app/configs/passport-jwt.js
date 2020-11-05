@@ -3,7 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy,
 const hashHelper = require('../helpers/hashes');
 const jwtConfig = require('./passport-config');
 
-let context = require('../data/models/index');
+let model = require('../data/models/index');
 
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -24,7 +24,7 @@ module.exports = function(passport){
     });
 
     passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
-        const user = await context.users.findOne({ where: { id: jwt_payload.id } });
+        const user = await model.user.findOne({ where: { id: jwt_payload.id } });
         if(user){
             return done(null,user);
         }

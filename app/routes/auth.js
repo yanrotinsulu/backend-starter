@@ -10,14 +10,14 @@ const isAuthenticated = require('../helpers/isauthenticated');
 switch(passportConfig.strategy){
   case "local":
     router.post('/login', 
-      passport.authenticate('local', { failureRedirect: '/auths/login' }),
+      passport.authenticate('local', { failureRedirect: '/auth/login' }),
       function(req, res) {
         res.redirect('/');
       }
     );
     router.get('/logout', function(req, res){
       req.logout();
-      res.redirect('/auths/login');
+      res.redirect('/auth/login');
     });
     break;
   
@@ -39,6 +39,12 @@ switch(passportConfig.strategy){
     break;
 }
 
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     description:  Endpoint for everything
+ */
 router.get('/check', isAuthenticated, function(req, res) {
   res.status(200).json({'message': 'you are authenticated'});
 });

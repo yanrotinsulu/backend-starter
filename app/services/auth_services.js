@@ -1,11 +1,11 @@
 const hashHelper = require('../helpers/hashes');
-let context = require('../data/models/index');
+let model = require('../data/models/index');
 
 const services = {
     async getUserId(username, password){
-        var user = await context.users.findOne({ where: { email: username } });
+        let user = await model.user.findOne({ where: { email: username } });
         if(user) {
-            var compareResult = await hashHelper.compareAsync(password, user.password);
+            let compareResult = await hashHelper.compareAsync(password, user.password);
             if(compareResult){
                 return user.id;
             }

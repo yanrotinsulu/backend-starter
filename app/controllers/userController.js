@@ -1,8 +1,6 @@
 const model = require('../data/models/index');
 const authService = require('../helpers/hashes');
 
-//const User = require('../data/models/users');
-
 const getFieldsToUpdate = (fields) => {
     return {
       ...fields.email && { email: fields.email },
@@ -14,12 +12,12 @@ const getFieldsToUpdate = (fields) => {
 // Display list of all Users.
 exports.user_list = async function(req, res) {
     try {
-        const users = await model.users.findAll({});
-        if (users.length !== 0) {
+        const listOfUser = await model.user.findAll({});
+        if (listOfUser.length !== 0) {
           res.json({
             'status': 'OK',
             'messages': '',
-            'data': users
+            'data': listOfUser
           })
         } else {
           res.json({
@@ -57,12 +55,12 @@ exports.user_create_post = async function(req, res) {
         fieldsToAdd.createdBy = "system";
         fieldsToAdd.updatedBy = "system";
         
-        const users = await model.users.create(fieldsToAdd);
-        if (users) {
+        const addedUser = await model.user.create(fieldsToAdd);
+        if (addedUser) {
           res.status(201).json({
             'status': 'OK',
             'messages': 'New user successfully be added',
-            'data': users,
+            'data': addedUser,
           })
         }
     } catch (err) {
@@ -87,17 +85,17 @@ exports.user_delete_post = function(req, res) {
 // Handle User delete on POST.
 exports.user_delete_delete = async function(req, res) {
     try {
-        const usersId = req.params.id;
-        const users = await model.users.destroy({
+        const userId = req.params.id;
+        const deletedUser = await model.user.destroy({
           where: {
-            id: usersId
+            id: userId
           }
         })
-        if (users) {
+        if (deletedUser) {
           res.json({
             'status': 'OK',
             'messages': 'User successfully be deleted',
-            'data': users,
+            'data': deletedUser,
           })
         }
     } catch (err) {
@@ -122,7 +120,7 @@ exports.user_update_post = function(req, res) {
 // Handle User update on PATCH.
 exports.user_update_patch = async function(req, res) {
     try {
-        const usersId = req.params.id;
+        const userId = req.params.id;
         const fieldsToUpdate = getFieldsToUpdate(req.body);
 
         fieldsToUpdate.updatedBy = "system";
@@ -130,17 +128,17 @@ exports.user_update_patch = async function(req, res) {
           fieldsToUpdate.password = await authService.hashASync(fieldsToUpdate.password);
         }
     
-        const users = await model.users.update(fieldsToUpdate, {
+        const updatedUser = await model.user.update(fieldsToUpdate, {
           where: {
-            id: usersId
+            id: userId
           }
         });
     
-        if (users) {
+        if (updatedUser) {
           res.json({
             'status': 'OK',
             'messages': 'User successfully be updated',
-            'data': users,
+            'data': updatedUser,
           })
         }
     } catch (err) {
