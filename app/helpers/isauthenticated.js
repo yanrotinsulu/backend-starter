@@ -19,7 +19,6 @@ switch (passportConfig.strategy){
                     res.status(401).json({'message': 'you are not authenticated'});
                 }
                 else{
-                    res.locals.test = true;
                     next();
                 }
             })(req,res);
