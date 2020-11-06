@@ -1,5 +1,5 @@
 const model = require('../data/models/index');
-const authService = require('../helpers/hashes');
+const hashHelper = require('../helpers/hashes');
 
 const getFieldsToUpdate = (fields) => {
     return {
@@ -50,7 +50,7 @@ exports.user_create_get = function(req, res) {
 exports.user_create_post = async function(req, res) {
     try {
         const fieldsToAdd = getFieldsToUpdate(req.body);
-        fieldsToAdd.password = await authService.hashASync(fieldsToAdd.password);
+        fieldsToAdd.password = await hashHelper.hashASync(fieldsToAdd.password);
         fieldsToAdd.is_activated = true;
         fieldsToAdd.is_locked = false;
         fieldsToAdd.created_by = "system";
@@ -126,7 +126,7 @@ exports.user_update_patch = async function(req, res) {
 
         fieldsToUpdate.updated_by = "system";
         if("password" in fieldsToUpdate){
-          fieldsToUpdate.password = await authService.hashASync(fieldsToUpdate.password);
+          fieldsToUpdate.password = await hashHelper.hashASync(fieldsToUpdate.password);
         }
     
         const updatedUser = await model.user.update(fieldsToUpdate, {
