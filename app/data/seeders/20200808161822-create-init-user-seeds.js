@@ -21,8 +21,8 @@ module.exports = {
       email: 'superadmin@rotinsulu.com',
       full_name: 'Superadmin',
       is_activated: true,
-      created_by: 'system',
-      updated_by: 'system'
+      created_by: 'seed',
+      updated_by: 'seed'
     }], {});
   },
 

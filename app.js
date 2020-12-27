@@ -9,6 +9,7 @@ const app = express();
 const port = 3000;
 const userRoute = require('./app/routes/user');
 const authRoute = require('./app/routes/auth');
+const roleRoute = require('./app/routes/role');
 //process.env.root = __dirname;
 
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -58,6 +59,7 @@ app.use(function (error, request, response, next) {
 app.get('/', (req, res) => res.send('Welcome to Fypr Backend Starter'))
 app.use('/user', userRoute);
 app.use('/auth', authRoute);
+app.use('/role', roleRoute);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
