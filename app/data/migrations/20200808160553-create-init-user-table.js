@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
+      username: {
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -16,32 +16,36 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      userFullName: {
-        allowNull: false,
+      email: {
+        allowNull: true,
         type: Sequelize.STRING
       },
-      isActivated: {
+      full_name: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      is_activated: {
         defaultValue: false,
         type: Sequelize.BOOLEAN
       },
-      isLocked: {
+      is_locked: {
         defaultValue: false,
         type: Sequelize.BOOLEAN
       },
-      createdBy: {
+      created_by: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      updatedBy: {
+      updated_by: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         defaultValue: Sequelize.fn('NOW'),
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         defaultValue: Sequelize.fn('NOW'),
         type: Sequelize.DATE

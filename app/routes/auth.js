@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
-const authService = require('../services/auth_services');
+const authController = require('../controllers/authController');
 const passportConfig = require('../configs/passport-config');
 const isAuthenticated = require('../helpers/isauthenticated');
 
@@ -23,7 +23,7 @@ switch(passportConfig.strategy){
   
   default:
     router.post('/login', async function(req, res) {
-        UserID = await authService.getUserId(req.body.username, req.body.password);
+        UserID = await authController.getUserIdByUsernameOrEmail(req.body.username, req.body.password);
         if (UserID){
           const token = jwt.sign({ id : UserID }, passportConfig.secretKey, {expiresIn: 3600});
           res.status(200).send({

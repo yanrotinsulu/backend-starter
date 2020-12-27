@@ -1,5 +1,13 @@
 {
   "development": {
+    "username": "perinusa_mysql",
+    "password": "Mandiri1!!",
+    "database": "perinusa_research",
+    "host": "127.0.0.1",
+    "dialect": "mariadb",
+    "operatorsAliases": 0
+  },
+  "developmentlocal": {
     "username": "root",
     "password": "Mandiri1",
     "database": "boilerplate_dev",
