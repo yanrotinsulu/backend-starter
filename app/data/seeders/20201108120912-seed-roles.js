@@ -33,10 +33,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete('user', [{
-      id: 1
-    },{
-      id: 2
-    }], {});
+    return await queryInterface.bulkDelete('role', {id:{[Sequelize.Op.ne]:[1]}}, {});
   }
 };

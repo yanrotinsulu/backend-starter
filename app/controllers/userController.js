@@ -1,7 +1,7 @@
 const model = require('../data/models/index');
 const hashHelper = require('../helpers/hashes');
 
-const getFieldsToUpdate = (fields) => {
+const getFormFields = (fields) => {
     return {
       ...fields.username && { username: fields.username },
       ...fields.email && { email: fields.email },
@@ -13,12 +13,12 @@ const getFieldsToUpdate = (fields) => {
 // Display list of all Users.
 exports.user_list = async function(req, res) {
     try {
-        const listOfUser = await model.user.findAll({});
-        if (listOfUser.length !== 0) {
+        const users = await model.user.findAll({});
+        if (users.length !== 0) {
           res.json({
             'status': 'OK',
             'messages': '',
-            'data': listOfUser
+            'data': users
           })
         } else {
           res.json({
@@ -49,19 +49,19 @@ exports.user_create_get = function(req, res) {
 // Handle User create on POST.
 exports.user_create_post = async function(req, res) {
     try {
-        const fieldsToAdd = getFieldsToUpdate(req.body);
-        fieldsToAdd.password = await hashHelper.hashASync(fieldsToAdd.password);
-        fieldsToAdd.is_activated = true;
-        fieldsToAdd.is_locked = false;
-        fieldsToAdd.created_by = "system";
-        fieldsToAdd.updated_by = "system";
+        const formFields = getFormFields(req.body);
+        formFields.password = await hashHelper.hashASync(formFields.password);
+        formFields.is_activated = true;
+        formFields.is_locked = false;
+        formFields.created_by = "system";
+        formFields.updated_by = "system";
         
-        const addedUser = await model.user.create(fieldsToAdd);
-        if (addedUser) {
+        const userAdded = await model.user.create(fieldsToAdd);
+        if (userAdded) {
           res.status(201).json({
             'status': 'OK',
             'messages': 'New user successfully be added',
-            'data': addedUser,
+            'data': userAdded,
           })
         }
     } catch (err) {
@@ -87,16 +87,16 @@ exports.user_delete_post = function(req, res) {
 exports.user_delete_delete = async function(req, res) {
     try {
         const userId = req.params.id;
-        const deletedUser = await model.user.destroy({
+        const userDeleted = await model.user.destroy({
           where: {
             id: userId
           }
         })
-        if (deletedUser) {
+        if (userDeleted) {
           res.json({
             'status': 'OK',
             'messages': 'User successfully be deleted',
-            'data': deletedUser,
+            'data': userDeleted,
           })
         }
     } catch (err) {
@@ -122,24 +122,24 @@ exports.user_update_post = function(req, res) {
 exports.user_update_patch = async function(req, res) {
     try {
         const userId = req.params.id;
-        const fieldsToUpdate = getFieldsToUpdate(req.body);
+        const formFields = getFormFields(req.body);
 
-        fieldsToUpdate.updated_by = "system";
-        if("password" in fieldsToUpdate){
-          fieldsToUpdate.password = await hashHelper.hashASync(fieldsToUpdate.password);
+        formFields.updated_by = "system";
+        if("password" in formFields){
+          formFields.password = await hashHelper.hashASync(formFields.password);
         }
     
-        const updatedUser = await model.user.update(fieldsToUpdate, {
+        const userUpdated = await model.user.update(formFields, {
           where: {
             id: userId
           }
         });
     
-        if (updatedUser) {
+        if (userUpdated) {
           res.json({
             'status': 'OK',
             'messages': 'User successfully be updated',
-            'data': updatedUser,
+            'data': userUpdated,
           })
         }
     } catch (err) {

@@ -51,16 +51,16 @@ switch (passportConfig.strategy) {
         break;
 }
 
-app.use(function (error, request, response, next) {
-    console.error(error.stack);
-    response.status(400).send(error.message);
-});
-
-app.get('/', (req, res) => res.send('Welcome to Fypr Backend Starter'))
+app.get('/', (req, res) => res.send('Welcome to Fypr Backend Starter!'))
 app.use('/user', userRoute);
 app.use('/auth', authRoute);
 app.use('/role', roleRoute);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+
+app.use(function (error, request, response, next) {
+    console.error(error.stack);
+    response.status(400).send(error.message);
+});
 
 app.listen(port, () => console.log('Fypr Backend app is running'));
