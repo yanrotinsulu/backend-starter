@@ -20,7 +20,7 @@
   "homepage": "https://github.com/yanrotinsulu/nodejs-boilerplate#readme",
   "devDependencies": {
     "jest": "^26.6.3",
-    "nodemon": "^2.0.7",
+    "nodemon": "^2.0.20",
     "sequelize-cli": "^6.2.0"
   },
   "dependencies": {
