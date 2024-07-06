@@ -1,26 +1,10 @@
 {
-  "development_perinusa": {
-    "username": "perinusa_mysql",
-    "password": "Mandiri1!!",
-    "database": "perinusa_research",
-    "host": "127.0.0.1",
-    "dialect": "mariadb",
-    "operatorsAliases": 0
-  },
   "development": {
     "username": "root",
-    "password": "Mandiri1",
-    "database": "boilerplate_dev",
+    "password": "password",
+    "database": "fypr",
     "host": "127.0.0.1",
     "dialect": "mariadb",
-    "operatorsAliases": 0
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
     "operatorsAliases": 0
   },
   "production": {
