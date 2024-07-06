@@ -1,5 +1,5 @@
 'use strict';
-module.exports = {
+export default def = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('user_role', {
       id: {
