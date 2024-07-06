@@ -1,4 +1,5 @@
-const bcrypt = require('bcrypt');
+import bcryptModule from 'bcrypt'; 
+const bcrypt = bcryptModule;
 const saltRounds = 10;
 
 const hashHelper = {
@@ -16,4 +17,5 @@ const hashHelper = {
     }
 }
 
-module.exports = hashHelper;
+//module.exports = hashHelper;
+export default hashHelper

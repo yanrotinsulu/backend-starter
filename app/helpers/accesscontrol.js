@@ -1,4 +1,4 @@
-const AccessControl = require('accesscontrol');
+import AccessControl from 'accesscontrol';
 const ac = new AccessControl();
 ac.grant('user')                    // define new or modify existing role. also takes an array.
     .createOwn('video')             // equivalent to .createOwn('video', ['*'])
@@ -9,4 +9,4 @@ ac.grant('user')                    // define new or modify existing role. also 
     .updateAny('video', ['*','!title'])  // explicitly defined attributes
     .deleteAny('video');
 
-module.exports = ac;
+export default ac;

@@ -1,7 +1,7 @@
-const access_control = require('../helpers/accesscontrol');
+import access_control from '../helpers/accesscontrol.js';
 
 // Display list of all Users.
-exports.check_role = async function(req, res) {
+export default async function check_role (req, res) {
     try {
         let data_sample = [{
             id : 1,

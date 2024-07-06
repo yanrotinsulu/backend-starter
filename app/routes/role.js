@@ -1,12 +1,13 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const isAuthenticated = require('../helpers/isauthenticated');
+import isAuthenticated from '../helpers/isauthenticated.js';
 
 // Require controller modules.
-const role_controller = require('../controllers/roleController');
+import role_controller from '../controllers/roleController.js';
 
 /// Role ROUTES ///
 
-router.get('/check', role_controller.check_role);
+router.get('/check', role_controller);
 
-module.exports = router;
+//module.exports = router;
+export default router;

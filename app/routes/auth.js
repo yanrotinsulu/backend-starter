@@ -1,41 +1,40 @@
-const express = require('express');
+import express from 'express';
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+
+import authController from '../controllers/authController.js';
+import passportConfig from '../configs/passport-config.js';
+import isAuthenticated from '../helpers/isauthenticated.js';
+
 const router = express.Router();
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 
-const authController = require('../controllers/authController');
-const passportConfig = require('../configs/passport-config');
-const isAuthenticated = require('../helpers/isauthenticated');
-
-switch(passportConfig.strategy){
-  case "local":
+switch(passportConfig.strategy) {
+  case 'local':
     router.post('/login', 
       passport.authenticate('local', { failureRedirect: '/auth/login' }),
-      function(req, res) {
+      (req, res) => {
         res.redirect('/');
       }
     );
-    router.get('/logout', function(req, res){
+    router.get('/logout', (req, res) => {
       req.logout();
       res.redirect('/auth/login');
     });
     break;
-  
+
   default:
-    router.post('/login', async function(req, res) {
-        UserID = await authController.getUserIdByUsernameOrEmail(req.body.username, req.body.password);
-        if (UserID){
-          const token = jwt.sign({ id : UserID }, passportConfig.secretKey, {expiresIn: 3600});
-          res.status(200).send({
-            token: token,
-            message: 'user found and logged in'
-          });
-        }
-        else{
-          res.status(401).redirect('/');
-        }
+    router.post('/login', async (req, res) => {
+      const userID = await authController(req.body.username, req.body.password);
+      if (userID) {
+        const token = jwt.sign({ id: userID }, passportConfig.secretKey, { expiresIn: 3600 });
+        res.status(200).send({
+          token: token,
+          message: 'User found and logged in'
+        });
+      } else {
+        res.status(401).redirect('/');
       }
-    );
+    });
     break;
 }
 
@@ -43,15 +42,15 @@ switch(passportConfig.strategy){
  * @swagger
  * /:
  *   get:
- *     description:  Endpoint for everything
+ *     description: Endpoint for everything
  */
-router.get('/check', isAuthenticated, function(req, res) {
-  res.status(200).json({'message': 'you are authenticated'});
+router.get('/check', isAuthenticated, (req, res) => {
+  res.status(200).json({ 'message': 'You are authenticated' });
 });
 
 router.post('/debug',
-  function (req, res, next) {
-    passport.authenticate(passportConfig.strategy, function (error, user, info) {
+  (req, res, next) => {
+    passport.authenticate(passportConfig.strategy, (error, user, info) => {
       console.log(req);
       console.log(error);
       console.log(user);
@@ -66,10 +65,10 @@ router.post('/debug',
       }
     })(req, res);
   },
-  // function to call once successfully authenticated
-  function (req, res) {
-    res.status(200).send('logged in!');
+  // Function to call once successfully authenticated
+  (req, res) => {
+    res.status(200).send('Logged in!');
   }
 );
-  
-module.exports = router;
+
+export default router;

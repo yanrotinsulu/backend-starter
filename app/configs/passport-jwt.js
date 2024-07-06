@@ -1,9 +1,8 @@
-const JwtStrategy = require('passport-jwt').Strategy,
-    ExtractJwt = require('passport-jwt').ExtractJwt;
-const hashHelper = require('../helpers/hashes');
-const jwtConfig = require('./passport-config');
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+import hashHelper from '../helpers/hashes.js';
+import jwtConfig from './passport-config.js';
 
-let model = require('../data/models/index');
+import model from '../data/models/index.js';
 
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -13,7 +12,7 @@ opts.secretOrKey = jwtConfig.secretKey;
 opts.usernameField = 'username';
 opts.passwordField = 'password';
 
-module.exports = function(passport){
+export default function def(passport){
     
     passport.serializeUser(function(user, done) {
         done(null, user.id);

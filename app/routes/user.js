@@ -1,9 +1,12 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const isAuthenticated = require('../helpers/isauthenticated');
+
+import authentication from '../helpers/isauthenticated.js';
+const isAuthenticated = authentication;
 
 // Require controller modules.
-const user_controller = require('../controllers/userController');
+import userController from '../controllers/userController.js';
+const user_controller = userController;
 
 /// USER ROUTES ///
 
@@ -37,4 +40,7 @@ router.get('/:id', user_controller.user_detail);
 // GET request for list of all Users.
 router.get('/', isAuthenticated, user_controller.user_list);
 
-module.exports = router;
+//router.get('/', (req, res) => res.send('masuk gan di user'))
+
+//module.exports = router;
+export default router;

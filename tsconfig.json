@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "module": "es6",
+      "target": "es6",
+      "allowJs": true,
+      "checkJs": false,
+      "outDir": "./dist",
+      "rootDir": "./app",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": ["app/**/*"],
+    "exclude": ["node_modules", "dist"]
+}

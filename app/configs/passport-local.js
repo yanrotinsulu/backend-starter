@@ -1,10 +1,10 @@
-const LocalStrategy = require('passport-local').Strategy;
-const hashHelper = require('../helpers/hashes');
-const {Op} = require('sequelize');
+import { Strategy as LocalStrategy } from 'passport-local';
+import hashHelper from '../helpers/hashes.js';
+import { Op } from 'sequelize';
 
-let model = require('../data/models/index');
+import model from '../data/models/index.js';
 
-module.exports = function(passport){
+export default function def(passport){
     
     passport.serializeUser(function(user, done) {
         done(null, user.id);

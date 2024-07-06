@@ -1,20 +1,26 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const passport = require('passport');
-const passportConfig = require('./app/configs/passport-config');
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import passport from 'passport';
+
+const { json } = bodyParser;
+const { initialize, session : _session } = passport;
+import passportConfig from './app/configs/passport-config.js';
+const { strategy } = passportConfig
 
 const app = express();
 const port = 3000;
-const userRoute = require('./app/routes/user');
-const authRoute = require('./app/routes/auth');
-const roleRoute = require('./app/routes/role');
+
+import userRoute from './app/routes/user.js';
+import authRoute from './app/routes/auth.js';
+import roleRoute from './app/routes/role.js';
 //process.env.root = __dirname;
 
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+//import swaggerJsdoc from 'swagger-jsdoc';
+//import { serve, setup } from 'swagger-ui-express';
 
+/*
 const swaggerOpts = {
     swaggerDefinition: {
         // Like the one described here: https://swagger.io/specification/#infoObject
@@ -30,24 +36,41 @@ const swaggerOpts = {
 };
 
 const swaggerSpecs = swaggerJsdoc(swaggerOpts);
-//const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./swagger.json');
+*/
 
-//app.use(express.static('public'));
+app.use(express.static('public'));
 app.disable('x-powered-by');
 app.use(cookieParser());
-app.use(bodyParser.json({
+app.use(json({
     limit: '100kb',
 }));
 app.use(session({ secret: 'FyprBoilerplate', resave: false, saveUninitialized: false, cookie: { secure: false } }));
-app.use(passport.initialize());
+//TODO app.use(initialize());
 
-switch (passportConfig.strategy) {
+/*
+switch (strategy) {
     case "local":
-        app.use(passport.session());
+        app.use(_session());
         require('./app/configs/passport-local')(passport);
         break;
     default:
         require('./app/configs/passport-jwt')(passport);
+        break;
+}
+*/
+
+switch (strategy) {
+    case "local":
+        //TODO app.use(_session());
+        import('./app/configs/passport-local.js')
+            .then(module => module.default(passport))
+            .catch(err => console.error('Error loading local passport config:', err));
+        break;
+    default:
+        import('./app/configs/passport-jwt.js')
+            .then(module => module.default(passport))
+            .catch(err => console.error('Error loading JWT passport config:', err));
         break;
 }
 
@@ -56,7 +79,7 @@ app.use('/user', userRoute);
 app.use('/auth', authRoute);
 app.use('/role', roleRoute);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+//app.use('/api-docs', serve, setup(swaggerSpecs));
 
 app.use(function (error, request, response, next) {
     console.error(error.stack);

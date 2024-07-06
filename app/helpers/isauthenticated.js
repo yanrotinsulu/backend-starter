@@ -1,5 +1,7 @@
-const passport = require('passport');
-const passportConfig = require('../configs/passport-config');
+import passportModule from 'passport';
+const { passport } = passportModule;
+import passportConfigModule from '../configs/passport-config.js';
+const passportConfig = passportConfigModule;
 
 let isAuthenticatedFunction;
 
@@ -26,4 +28,5 @@ switch (passportConfig.strategy){
         break;
 }
 
-module.exports = isAuthenticatedFunction;
+//module.exports = isAuthenticatedFunction;
+export default isAuthenticatedFunction;

@@ -1,28 +1,25 @@
-const model = require('../data/models/index');
-const { Op } = require("sequelize");
-const hashHelper = require('../helpers/hashes');
+import model from '../data/models/index.js';
+import { Op } from 'sequelize';
+import hashHelper from '../helpers/hashes.js';
 
-exports.getUserIdByUsernameOrEmail = async function(username, password) {
-    let user = await model.user.findOne(
-        { 
-            where: { 
-                [Op.or]: [
-                    { username: username },
-                    { email: username }
-                ]
-            } 
-        }
-        );
-    if(user) {
-        let compareResult = await hashHelper.compareAsync(password, user.password);
-        if(compareResult){
-            return user.id;
-        }
-        else{
-            return 0;
-        }
+export default async function getUserIdByUsernameOrEmail(username, password) {
+  let user = await model.user.findOne({
+    where: {
+      [Op.or]: [
+        { username: username },
+        { email: username }
+      ]
     }
-    else {
-        return 0;
+  });
+
+  if (user) {
+    let compareResult = await hashHelper.compareAsync(password, user.password);
+    if (compareResult) {
+      return user.id;
+    } else {
+      return 0;
     }
+  } else {
+    return 0;
+  }
 }
